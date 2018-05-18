@@ -1,0 +1,13 @@
+<template>
+	<div>
+		<div s-transition="hook('slide')">Child elements with transition effects.</div>
+	</div>
+</template>
+
+<script type="text/javascript">
+	import {transition} from 'san-transition';
+
+	export default {
+		hook: transition
+	}
+</script>

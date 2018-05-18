@@ -1,0 +1,72 @@
+<template>
+    <div>
+    	<ul class="list1" s-ref="btn">    		
+    		<div class="btn" on-click="toggle">
+    			<button s-if="show1" san-transition="hook('fade')">展开列表</button>
+    		    <button s-else san-transition="hook('fade')">收起列表</button>  
+    		</div> 
+    		<div s-if="show2" s-transition="hook('slide')">
+    			<li s-for="item in list">list1</li>
+    		</div>
+    	</ul>
+    </div>
+</template>
+
+<script type="text/javascript">
+    import {transition} from 'san-transition';
+    
+	export default {
+		initData() {
+			return {
+				list: [1, 2, 3],
+				show1: true,
+				show2: false
+			}
+		},
+		hook: transition,
+		toggle() {
+            this.data.set('show1', !this.data.get('show1'));
+            this.ref('btn').addEventListener('transitionend', () => {
+            	this.data.set('show2', !this.data.get('show1'));
+            });
+		}
+	}
+</script>
+
+<style type="text/css">
+    ul {
+    	list-style: none;
+    }
+	.fade-enter, .fade-leave {
+        transition: all .5s;
+    }
+	.fade-enter, .fade-before-leave {
+	    opacity: 1;
+	}
+	.fade-before-enter, .fade-leave {
+	    opacity: 0;
+	}
+	.slide-enter, .slide-leave {
+		transition: all 1s;
+	}
+	.slide-enter, .slide-before-leave {
+		height: 100px;
+		border: 1px solid #000;
+		overflow: hidden;
+	}
+	.slide-before-enter, .slide-leave {
+		height: 0;
+		border: 1px solid #000;
+		overflow: hidden;
+	}
+	ul div {
+		border: 1px solid #000;
+		width: 80px;
+		height: 100px;
+	}
+	.btn {
+		width: 100%;
+		height: 100%;
+		border: none;
+	}
+</style>
